@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="report_product_template_label_dymo"
+            string="Product Label (Dymo)"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="product_label_dymo.report_simple_label_dymo"
+            file="product_label_dymo.report_simple_label_dymo"
+            print_report_name="'Products Labels - %s' % (object.name)"
+        />
+
+        <record id="report_product_template_label_dymo" model="ir.actions.report">
+            <field name="paperformat_id" ref="product_label_dymo.paperformat_dymo"/>
+        </record>
+    </data>
+</odoo>

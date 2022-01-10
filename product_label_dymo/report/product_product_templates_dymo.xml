@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="report_simple_label_dymo" inherit_id="product.report_productlabel" primary="True">
+            <xpath expr="//div[hasclass('page')]" position="replace">
+                <t t-foreach="docs" t-as="product">
+                    <div style="width: 100%; height: 55px; border: 4px solid black; margin-top: 10px; display: inline-table; font-size: 11px;">
+                        <table class="table table-borderless mt-2">
+                            <tr>
+                                <td style="padding-bottom: 0px; padding-top: 2px;">
+                                    <strong>Title:</strong>
+                                    <strong t-field="product.display_name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 0px; padding-top: 0px;">
+                                    <strong>Price:</strong>
+                                    <strong t-field="product.lst_price" t-options="{'widget': 'monetary', 'display_currency': product.company_id.currency_id}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 0px; padding-top: 0px;">
+                                    <strong>Samarkand</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center align-middle" style="padding-bottom: 0px; padding-top: 5px;">
+                                    <t t-if="product.barcode">
+                                        <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height::4rem;"/>
+                                        <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height::4rem;"/>
+                                        <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height::4rem;"/>
+                                        <span t-field="product.barcode"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="text-muted">No barcode available</span>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>
